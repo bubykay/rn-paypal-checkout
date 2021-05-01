@@ -1,0 +1,26 @@
+{
+  "name": "backend-paypal",
+  "version": "1.0.0",
+  "description": "backend for paypal integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/bubykay"
+  },
+  "author": "Kayode Adetayo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "consolidate": "^0.16.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "paypal-rest-sdk": "^1.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
