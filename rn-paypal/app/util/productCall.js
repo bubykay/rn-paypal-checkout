@@ -5,3 +5,8 @@
 // }
 
 // module.exports = getProduct
+
+const formatPrice = (x) => {
+    //check if x is string
+    //if string
+}

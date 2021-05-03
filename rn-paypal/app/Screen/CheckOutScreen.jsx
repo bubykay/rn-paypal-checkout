@@ -1,17 +1,15 @@
 import React, {useContext} from 'react';
 import CheckOutList from '../component/CheckOutList';
 import CartContext from '../component/CartContext'
-import { Button, SafeAreaView, Text, View, StyleSheet, Modal } from 'react-native';
+import { Button, SafeAreaView, Text, View, StyleSheet, Modal, TouchableHighlight } from 'react-native';
 import { useState } from 'react';
 import WebView from 'react-native-webview';
 
 
-// import createOrder from '../paypal/creactOder'
 
 const CheckOutScreen = ({navigation, route}) => {
     const {cart, setCart} = useContext(CartContext)
     const [modalVisible, setModalVisible] = useState(false)
-    
 
     const handleResponse = data => {
         if (data.title === "success") {
@@ -26,46 +24,65 @@ const CheckOutScreen = ({navigation, route}) => {
         }
     };
 
+    const items = cart.items.map(item => {
+        const {price, name, sku, quantity, currency} = item
+        return {price, name, sku, quantity, currency}
+    })
+
     const body = { 
-        item_list: { items: [...cart.items] }, 
-        amount: {currency: 'USD', total: cart.total},
-        description: "From Test website"
+        item_list: { items: [...items] }, 
+        amount: {currency: 'USD', total: cart.total.toFixed(2)},
+        description: "Utest Paypal-SDK Checkout"
     }
 
 
+  
 
-    return (
-       <SafeAreaView style={{flex:1, flexDirection:"column"}}>
-           
-           <Modal visible={modalVisible}>
-              
-               <WebView source={{
-                   uri: 'http://192.168.88.77:3000/paypal', body:JSON.stringify(body), headers: { 'Content-Type': 'text/plain', }, method:'POST'}} 
-                   style={{marginTop:50}}  
-                   onNavigationStateChange={data =>handleResponse(data)}
-                   />
-              
-           </Modal>
+    const INJECTEDJAVASCRIPT = `const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta)`;
+    
+        return (
+        <SafeAreaView style={{flex:1, flexDirection:"column"}}>
 
-           <CheckOutList route={route} cart={cart}/>
-           
-           
-           <View style={styles.container}>
-               <View style={styles.cell}>
-                    <Text style={{alignSelf: "center", color:"white", fontWeight:'bold', fontSize:20}}>
-                        US ${cart.total}
+            {cart.items.length===0 && 
+            <View>
+                <Text style={{paddingTop: 80, alignSelf: 'center'}}>
+                    Shopping cart empty...
+                </Text>
+                </View>
+                }
+            
+            <Modal visible={modalVisible}>
+                
+                <WebView source={{
+                    uri: 'http://192.168.88.77:3000/paypal', 
+                    body: JSON.stringify(body), 
+                    headers: { 'Content-Type': 'text/plain', }, method:'POST'}} 
+                    style={{marginTop:50}}  
+                    onNavigationStateChange={data =>handleResponse(data)}
+                    injectedJavaScript={INJECTEDJAVASCRIPT}
+                    /> 
+            </Modal>
+
+            <CheckOutList route={route} cart={cart} navigation={navigation}/>
+
+            <View style={styles.container}>
+                <View style={styles.cell}>
+                        <Text style={{alignSelf: "center", color:"white", fontWeight:'bold', fontSize:20}}>
+                            US ${cart.total}
+                        </Text>
+                </View>
+                <TouchableHighlight style={styles.button} onPress={()=>setModalVisible(true)}>
+                    <Text style={styles.paypalText}>
+                        Paypal Pay
                     </Text>
-               </View>
-               <View style={styles.button}>
-                   <Button title="Paypal Pay" color="white" onPress={()=>setModalVisible(true)} />
-               </View>
+                </TouchableHighlight>
+            </View>
 
-           </View>
-      
-       </SafeAreaView>
 
-    );
+        </SafeAreaView>
+        );
 };
+
 
 export default CheckOutScreen;
 
@@ -75,9 +92,10 @@ const styles = StyleSheet.create({
     },
     button : {
         flex: 1,
-        backgroundColor: '#450075',
+        backgroundColor: '#3b7bbf',
         borderRadius: 2,
-        padding:10
+        height: '100%',
+        alignSelf: 'center',
     },
     container: {
         position: "absolute",
@@ -87,7 +105,15 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: "100%",
         alignContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        height: 50,
+    },
+    paypalText : {
+        color: 'white',
+        // alignItems: 'center',
+        alignSelf: 'center',
+        // alignContent: 'center',
+        fontSize: 20,
     }
 
 })

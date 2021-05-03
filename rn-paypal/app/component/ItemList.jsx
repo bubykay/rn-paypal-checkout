@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, SafeAreaView, FlatList} from 'react-native'
+import {View, Text, SafeAreaView, FlatList, ActivityIndicator} from 'react-native'
 import axios from 'axios'
 import Product from './Product';
 import { StyleSheet } from 'react-native';
@@ -12,7 +12,8 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const ItemList = ({navigation}) => {
     const [products, setProducts] = useState([])
-    const {cart, setCart} = useContext(CartContext) 
+    const [loading, setLoading] = useState(false)
+    const {cart} = useContext(CartContext) 
 
     const Cart = withBadge(cart.items.length)(Icon)
 
@@ -22,8 +23,10 @@ const ItemList = ({navigation}) => {
 
 
     const getProduct = async() => {
+        setLoading(true)
         const result = await axios.get(`https://fakestoreapi.com/products?limit=20`)
         setProducts(result.data)
+        setLoading(false)
     }
 
     const RenderItem = ({item}) => (
@@ -31,7 +34,7 @@ const ItemList = ({navigation}) => {
         title = {item.title}
         category = {item.category}
         image = {item.image}
-        price = {item.price}
+        price = {item.price.toFixed(2)}
         description = {item.description}
         key = {item.id}
         onPress = {()=>navigation.navigate('Detail', item)}
@@ -39,7 +42,15 @@ const ItemList = ({navigation}) => {
 
     )
 
+    
 
+        if(loading){
+            return (
+                <View style={{flex: 1, alignSelf:"center", alignItems:"center"}}>
+                    <ActivityIndicator size='large' color='blue' style={{flex: 1, alignSelf:"center", alignItems:"center"}} />
+                </View>
+            )
+        }
 
     return (
         <SafeAreaView>

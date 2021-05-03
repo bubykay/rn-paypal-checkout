@@ -1,23 +1,30 @@
 import React from 'react';
+import { useContext } from 'react';
 import {FlatList, StyleSheet, View } from 'react-native';
-import CheckOutItem from './CheckOutItem';
 
-const CheckOutList = ({cart}) => {
+
+
+import CartContext from './CartContext';
+import CheckOutItem from './CheckOutItem';
+import CheckOutListFooter from './CheckOutListFooter';
+
+const CheckOutList = ({navigation}) => {
+    const {cart} = useContext(CartContext)
 
     const RenderItem =({item})=>(
         <CheckOutItem 
-            price = {item.price * item.quantity}
+            price = {(item.price * item.quantity).toFixed(2)}
             title = {item.name}
             image = {item.image}
-            qty = {item.quantity}
+            quatity = {item.quantity}
             total = {cart.total}
+            sku = {item.sku}
         />
     )
 
     const Separator = () => {
         return (
             <View style={styles.itemSeparator}>
-
             </View>
         )
     }
@@ -28,6 +35,7 @@ const CheckOutList = ({cart}) => {
             renderItem = {({item})=><RenderItem item={item} />}
             ItemSeparatorComponent = {Separator}
             keyExtractor = {item=>item.sku.toString()}
+            ListFooterComponent = {<CheckOutListFooter navigation={navigation} />}
         />
     );
 };
