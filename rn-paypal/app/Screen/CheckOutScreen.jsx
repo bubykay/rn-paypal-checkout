@@ -1,11 +1,18 @@
 import React, {useContext} from 'react';
-import CheckOutList from '../component/CheckOutList';
-import CartContext from '../component/CartContext'
-import { Dimensions, SafeAreaView, Text, View, StyleSheet, Modal, TouchableHighlight, ActivityIndicator } from 'react-native';
+import { Dimensions, 
+    SafeAreaView, 
+    Text, 
+    View, 
+    StyleSheet, 
+    Modal, 
+    TouchableHighlight, 
+    ActivityIndicator } from 'react-native';
 import { useState } from 'react';
 import WebView from 'react-native-webview';
 
 
+import CheckOutList from '../component/CheckOutList';
+import CartContext from '../component/CartContext'
 
 const CheckOutScreen = ({navigation, route}) => {
     const {cart, setCart} = useContext(CartContext)
@@ -18,10 +25,10 @@ const CheckOutScreen = ({navigation, route}) => {
         if (data.title === "success") {
             setModalVisible(false)
             setCart({total:0, items:[]})
-            navigation.navigate('Home')
+            navigation.navigate('success')
         } else if (data.title === "cancel") {
             setModalVisible(false)
-            setCart({...cart, status: "Cancelled"})
+            navigation.navigate('cancel')
         } else {
             return;
         }
@@ -55,7 +62,7 @@ const CheckOutScreen = ({navigation, route}) => {
             <Modal visible={modalVisible}>
                 
                 <WebView source={{
-                    uri: 'http://192.168.88.77:3000/paypal', 
+                    uri: 'https://utest-backend.herokuapp.com/paypal', 
                     body: JSON.stringify(body), 
                     headers: { 'Content-Type': 'text/plain', }, method:'POST'}} 
                     style={{marginTop:50}}  
@@ -70,9 +77,9 @@ const CheckOutScreen = ({navigation, route}) => {
                         height: ScreenHeight,
                         width: ScreenWidth,
                     }} />}
-
                     startInLoadingState = {true}
                     /> 
+
             </Modal>
 
             <CheckOutList route={route} cart={cart} navigation={navigation}/>
@@ -84,16 +91,15 @@ const CheckOutScreen = ({navigation, route}) => {
                         </Text>
                 </View>
                 <TouchableHighlight 
-                style={styles.button} 
-                disabled= {cart.items.length?false:true}
-                onPress={()=>setModalVisible(true)}>
+                    style={styles.button} 
+                    disabled= {cart.items.length?false:true}
+                    onPress={()=>setModalVisible(true)}>
+
                     <Text style={styles.paypalText}>
                         Paypal Pay
                     </Text>
                 </TouchableHighlight>
             </View>
-
-
         </SafeAreaView>
         );
 };
@@ -125,9 +131,7 @@ const styles = StyleSheet.create({
     },
     paypalText : {
         color: 'white',
-        // alignItems: 'center',
         alignSelf: 'center',
-        // alignContent: 'center',
         fontSize: 20,
     }
 

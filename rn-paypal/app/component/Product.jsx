@@ -1,9 +1,9 @@
 import React from 'react';
-import { ActivityIndicator, View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { ActivityIndicator, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import {Card} from 'react-native-elements'
 
 
-const Product = ({category, description, price, image, title, onPress}) => {
+const Product = ({price, image, title, onPress}) => {
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <Card containerStyle={styles.cardContainer}>

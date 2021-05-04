@@ -1,11 +1,13 @@
 import React from 'react';
-import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 
 import HomeScreen from '../Screen/HomeScreen'
 import ItemDetailScreen from '../Screen/ItemDetailScreen'
 import CheckOutScreen from '../Screen/CheckOutScreen';
 import PaypalScreen from '../Screen/PaypalScreen';
+import SuccessScreen from '../Screen/SuccessScreen';
+import CancelScreen from '../Screen/CancelScreen';
 const Stack = createStackNavigator();
 
 const ItemListStack = () => {
@@ -16,39 +18,22 @@ const ItemListStack = () => {
         screenOptions={{
                 headerStyle:{
                     backgroundColor:'#FA1088',
-                }   ,
+                },
                 headerTintColor: 'white',
                 headerBackTitle: 'Back',
-                headerTitle: ' '
-            }}
-        
-           
-            >
+                headerTitle: '',
+                headerBackTitleStyle: {
+                    fontWeight: 'bold',
+                }
+            }}>
                 
-            <Stack.Screen 
-                name="Home" 
-                component={HomeScreen} 
-                // options={{
-                //     title:"Nigeria News", 
-                //     headerShown:false
-                //     }} 
-                    />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Detail" component={ItemDetailScreen} />
+            <Stack.Screen name = "checkout" component={CheckOutScreen} />
+            <Stack.Screen name='paypal' component={PaypalScreen}  />
+            <Stack.Screen name='success' component={SuccessScreen} />
+            <Stack.Screen name='cancel' component={CancelScreen} /> 
 
-            <Stack.Screen name="Detail" 
-            component={ItemDetailScreen} 
-            options= {{headerTintColor:'white'}}
-            // options={({route})=>({title:route.params.title, headerShown:false})} 
-            />
-
-            <Stack.Screen 
-                name = "checkout"
-                component={CheckOutScreen}
-            />
-
-            <Stack.Screen 
-            name='paypal'
-            component={PaypalScreen} 
-            />
         </Stack.Navigator>
     );
 };

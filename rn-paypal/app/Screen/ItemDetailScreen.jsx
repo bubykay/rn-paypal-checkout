@@ -1,6 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import {View ,Text, Image, StyleSheet, Button, SafeAreaView, FlatList} from 'react-native';
+
 import CartContext from '../component/CartContext';
 
 const ItemDetailScreen = ({route, navigation}) => {

@@ -2,12 +2,9 @@ import React from 'react';
 import { useContext } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import {View, Text} from 'react-native'
+
+
 import CartContext from './CartContext';
-
-
-
-
-
 import Quatity from './Quatity';
 
 const CheckOutItem = ({price, title, image, sku, quatity}) => {

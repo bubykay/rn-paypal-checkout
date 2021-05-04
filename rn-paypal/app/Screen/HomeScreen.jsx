@@ -1,8 +1,4 @@
-
 import React from 'react';
-
-
-
 
 import ItemList from '../component/ItemList'
 const Home = ({navigation}) => {

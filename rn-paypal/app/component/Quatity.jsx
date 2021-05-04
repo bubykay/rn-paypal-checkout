@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import {View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
-const Quatity = ({sku, price, quatity, increaseBtn, decreaseBtn}) => {
+const Quatity = ({sku, quatity, increaseBtn, decreaseBtn}) => {
+
     return (
            <View style={styles.container}>
             <TouchableHighlight style={styles.button} onPress={()=>decreaseBtn(sku)}>
@@ -10,13 +11,10 @@ const Quatity = ({sku, price, quatity, increaseBtn, decreaseBtn}) => {
                 <View  style={styles.quatity}>
                     <Text style={styles.qtyText}>{quatity}</Text>
                 </View>
-
-
                 <TouchableHighlight style={styles.button} onPress={()=>increaseBtn(sku)}>
                 <Text style={styles.btnText}>+</Text>
             </TouchableHighlight>
            </View>
-       
     );
 };
 
@@ -26,16 +24,15 @@ const styles = StyleSheet.create({
     container : {
         flex: 1,
         flexDirection: "row",
-        // alignContent: "center",
         alignItems:"center",
-        alignSelf: "center"
+        alignSelf: "center",
     },
     button: {
         paddingTop:2,
         paddingBottom: 2,
         paddingHorizontal: 15,
         backgroundColor: '#BDBDBD',
-        borderRadius: 5
+        borderRadius: 5,
     },
     btnText: {
         color: 'white',
