@@ -8,7 +8,7 @@ This is a React Native Application
 
 ## ✔️ Requirements
 
-Apple computer with X-code installed to use ios simulator
+A MacOS PC with X-code installed on it (to use ios simulator)
 
 Node (versions `15.11.0` was used, but later versions _might_ work as well) and npm. If you haven't installed Node or npm, [nvm](https://github.com/nvm-sh/nvm) is an easy to use tool for installing both. Nvm is also handy if you want to quickly switch between different Node versions.
 
@@ -29,6 +29,6 @@ Node (versions `15.11.0` was used, but later versions _might_ work as well) and 
 
 
 # NOTE
-You can only checkout out with paypal personal sandbox account. Kindly create one at [Paypal](https://developer.paypal.com)
+You can only checkout out with paypal personal sandbox account. If you don't have one, kindly create an account at [Paypal](https://developer.paypal.com/docs/api-basics/sandbox/accounts/)
 
 
