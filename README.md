@@ -23,7 +23,7 @@ Node (versions `15.11.0` was used, but later versions _might_ work as well) and 
    2. Or scan the expo barcode shown with an iphone that has expo go installed on it to run the application (Note: the iphone and computer used must me on the same wifi network)
 
 #### option 2 (Easiest)
-1. Download the rn-payal app at [rn-app](http://www.katobum.com)
+1. Download the rn-payal app at [RN App Checkout](https://drive.google.com/u/0/uc?id=1LrEaTak8KQVJk5Q4Sc1DTBOhKzmt-MP3&export=download)
 2. Open ios simulator on your computer
 3. Drag the downloaded app into the simulator
 
