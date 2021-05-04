@@ -15,7 +15,7 @@ const Quatity = ({sku, quatity, increaseBtn, decreaseBtn}) => {
                 <Text style={styles.btnText}>+</Text>
             </TouchableHighlight>
            </View>
-        //    <view></view>
+      
     );
 };
 

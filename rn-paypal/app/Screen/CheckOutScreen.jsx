@@ -9,6 +9,7 @@ import { Dimensions,
     ActivityIndicator } from 'react-native';
 import { useState } from 'react';
 import WebView from 'react-native-webview';
+import Constants from 'expo-constants'
 
 
 import CheckOutList from '../component/CheckOutList';
@@ -59,23 +60,22 @@ const CheckOutScreen = ({navigation, route}) => {
                 </View>
                 }
             
-            <Modal visible={modalVisible}>
+            <Modal visible={modalVisible} transparent statusBarTranslucent='true'>
                 
                 <WebView source={{
                     uri: 'https://utest-backend.herokuapp.com/paypal', 
                     body: JSON.stringify(body), 
                     headers: { 'Content-Type': 'text/plain', }, method:'POST'}} 
-                    style={{marginTop:50}}  
+                    style={{marginTop:Constants.statusBarHeight}}  
                     onNavigationStateChange={data =>handleResponse(data)}
                     injectedJavaScript={INJECTEDJAVASCRIPT}
                     javaScriptEnabled = {true}
-                    renderLoading = {()=><ActivityIndicator size='large' color='red'  style={{
+                    renderLoading = {()=><ActivityIndicator size='large' color='red'  
+                    style={{
                         flex: 1, 
                         alignSelf: 'center', 
                         alignItems:'center', 
                         color: 'red',
-                        height: ScreenHeight,
-                        width: ScreenWidth,
                     }} />}
                     startInLoadingState = {true}
                     /> 
