@@ -35,7 +35,7 @@ const CheckOutList = ({navigation}) => {
             renderItem = {({item})=><RenderItem item={item} />}
             ItemSeparatorComponent = {Separator}
             keyExtractor = {item=>item.sku.toString()}
-            ListFooterComponent = {<CheckOutListFooter navigation={navigation} />}
+            ListFooterComponent = {<CheckOutListFooter navigation={navigation} cart={cart}/>}
         />
     );
 };

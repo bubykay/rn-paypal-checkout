@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 
 
 import HomeScreen from '../Screen/HomeScreen'
@@ -14,12 +14,15 @@ const ItemListStack = () => {
         <Stack.Navigator 
         initialRouteName="Home" 
         screenOptions={{
-                // headerStyle:{
-                //     backgroundColor:'purple',
-                // }   
+                headerStyle:{
+                    backgroundColor:'#FA1088',
+                }   ,
+                headerTintColor: 'white',
+                headerBackTitle: 'Back',
+                headerTitle: ' '
             }}
-            headerBackTitle=""
-            mode="modal"
+        
+           
             >
                 
             <Stack.Screen 
@@ -33,6 +36,7 @@ const ItemListStack = () => {
 
             <Stack.Screen name="Detail" 
             component={ItemDetailScreen} 
+            options= {{headerTintColor:'white'}}
             // options={({route})=>({title:route.params.title, headerShown:false})} 
             />
 

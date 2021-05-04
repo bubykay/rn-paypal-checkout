@@ -14,7 +14,7 @@ const Product = ({category, description, price, image, title, onPress}) => {
         <Card.Divider />
 
         <Card.Title style={styles.title}>{title}</Card.Title>
-        <Card.Title>${price}</Card.Title>
+        <Card.Title>${price.toFixed(2)}</Card.Title>
         </Card>
         </TouchableWithoutFeedback>
     );

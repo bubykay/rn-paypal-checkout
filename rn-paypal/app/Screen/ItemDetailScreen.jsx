@@ -1,7 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
 import {View ,Text, Image, StyleSheet, Button, SafeAreaView, FlatList} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import CartContext from '../component/CartContext';
 
 const ItemDetailScreen = ({route, navigation}) => {
@@ -21,17 +20,19 @@ const addToCart = (oldCart, products) => {
         quantity += 1
     }
     const newCart = {
-        items: [...oldCart.items, {price:price.toFixed(2), name: title, 
+        items: [...oldCart.items, {price:price, name: title, 
             image, 
             sku:id, quantity: quantity, currency: "USD", description}], 
-        total:( Number(oldCart.total) + Number(price)).toFixed(2)
+        total: Number(oldCart.total )+ Number(price)
     }
     setCart(newCart)
 }
 
 const RenderItem = ({item}) => (
     <View style={{ flex: 1}}>
+    <View style={{padding: 5}}>
     <Image source={{uri:item.image}} style={{height:350}} />
+    </View>
         
         <View style={styles.infoContainer}>
          <View>
@@ -44,7 +45,10 @@ const RenderItem = ({item}) => (
         </View>
         <View>
             <View style={{marginVertical:10}}>
-                <Text style={{fontWeight:'bold', fontSize:20, color: '#FA1088',}}>
+                <Text style={{
+                    fontWeight:'bold', 
+                    fontSize:20, color: '#FA1088',
+                    }}>
                     Description
                 </Text>
             </View>
@@ -59,7 +63,6 @@ const RenderItem = ({item}) => (
 )
 
 const Footer = () => (<View style={{padding:100}}></View>)
-
     return (
 
         <SafeAreaView style={{flex:1}}>
@@ -79,13 +82,18 @@ const Footer = () => (<View style={{padding:100}}></View>)
                         />
                 </View>
 
-                <View style={styles.checkout}>
+                {cart.items.length ? (
+                    <View style={styles.checkout}>
                     <Button 
-                        title={`Checkout US $${cart.total}`}
+                        disabled = {cart.total?false:true}
+                        title={`Checkout US $${parseFloat(cart.total).toFixed(2)}`}
                         color={'white'} 
                         onPress={()=>navigation.navigate('checkout', cart)} 
                         />
                 </View>
+                ) : null
+                
+                }
             </View>
         </SafeAreaView>
        

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, SafeAreaView, FlatList, ActivityIndicator} from 'react-native'
+import {View, SafeAreaView, FlatList, ActivityIndicator} from 'react-native'
 import axios from 'axios'
 import Product from './Product';
 import { StyleSheet } from 'react-native';
@@ -24,7 +24,7 @@ const ItemList = ({navigation}) => {
 
     const getProduct = async() => {
         setLoading(true)
-        const result = await axios.get(`https://fakestoreapi.com/products?limit=20`)
+        const result = await axios.get(`https://fakestoreapi.com/products?limit=30`)
         setProducts(result.data)
         setLoading(false)
     }
@@ -34,15 +34,12 @@ const ItemList = ({navigation}) => {
         title = {item.title}
         category = {item.category}
         image = {item.image}
-        price = {item.price.toFixed(2)}
+        price = {item.price}
         description = {item.description}
         key = {item.id}
         onPress = {()=>navigation.navigate('Detail', item)}
     />
-
     )
-
-    
 
         if(loading){
             return (
@@ -60,7 +57,6 @@ const ItemList = ({navigation}) => {
             renderItem = {({item})=><RenderItem item={item} />}
             />
             
-
             <View style={styles.cartMenu}>
             <TouchableWithoutFeedback onPress={()=>navigation.navigate('checkout')}>
                 <Cart name="shoppingcart" type="antdesign" size={40} color="#9A637F" />

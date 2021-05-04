@@ -2,15 +2,18 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const CheckOutListFooter = ({navigation}) => {
+const CheckOutListFooter = ({navigation, cart}) => {
    
     return (
        <TouchableWithoutFeedback
         style ={styles.backContainer}
         onPress={()=>navigation.navigate('Home')}>
-           <Text style={styles.backText}>
+           {cart.items.length ? (
+               <Text style={styles.backText}>
                Continue shopping
            </Text>
+            ) : null
+           }
        </TouchableWithoutFeedback>
     );
 };

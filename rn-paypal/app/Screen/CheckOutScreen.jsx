@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import CheckOutList from '../component/CheckOutList';
 import CartContext from '../component/CartContext'
-import { Button, SafeAreaView, Text, View, StyleSheet, Modal, TouchableHighlight } from 'react-native';
+import { Dimensions, SafeAreaView, Text, View, StyleSheet, Modal, TouchableHighlight, ActivityIndicator } from 'react-native';
 import { useState } from 'react';
 import WebView from 'react-native-webview';
 
@@ -10,6 +10,9 @@ import WebView from 'react-native-webview';
 const CheckOutScreen = ({navigation, route}) => {
     const {cart, setCart} = useContext(CartContext)
     const [modalVisible, setModalVisible] = useState(false)
+
+    let ScreenHeight = Dimensions.get("window").height;
+    let ScreenWidth = Dimensions.get("window").width;
 
     const handleResponse = data => {
         if (data.title === "success") {
@@ -31,11 +34,9 @@ const CheckOutScreen = ({navigation, route}) => {
 
     const body = { 
         item_list: { items: [...items] }, 
-        amount: {currency: 'USD', total: cart.total.toFixed(2)},
+        amount: {currency: 'USD', total: cart.total},
         description: "Utest Paypal-SDK Checkout"
     }
-
-
   
 
     const INJECTEDJAVASCRIPT = `const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta)`;
@@ -60,6 +61,17 @@ const CheckOutScreen = ({navigation, route}) => {
                     style={{marginTop:50}}  
                     onNavigationStateChange={data =>handleResponse(data)}
                     injectedJavaScript={INJECTEDJAVASCRIPT}
+                    javaScriptEnabled = {true}
+                    renderLoading = {()=><ActivityIndicator size='large' color='red'  style={{
+                        flex: 1, 
+                        alignSelf: 'center', 
+                        alignItems:'center', 
+                        color: 'red',
+                        height: ScreenHeight,
+                        width: ScreenWidth,
+                    }} />}
+
+                    startInLoadingState = {true}
                     /> 
             </Modal>
 
@@ -71,7 +83,10 @@ const CheckOutScreen = ({navigation, route}) => {
                             US ${cart.total}
                         </Text>
                 </View>
-                <TouchableHighlight style={styles.button} onPress={()=>setModalVisible(true)}>
+                <TouchableHighlight 
+                style={styles.button} 
+                disabled= {cart.items.length?false:true}
+                onPress={()=>setModalVisible(true)}>
                     <Text style={styles.paypalText}>
                         Paypal Pay
                     </Text>
