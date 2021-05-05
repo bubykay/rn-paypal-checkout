@@ -5,9 +5,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from '../Screen/HomeScreen'
 import ItemDetailScreen from '../Screen/ItemDetailScreen'
 import CheckOutScreen from '../Screen/CheckOutScreen';
-import PaypalScreen from '../Screen/PaypalScreen';
 import SuccessScreen from '../Screen/SuccessScreen';
 import CancelScreen from '../Screen/CancelScreen';
+import ErrorScreen from '../Screen/ErrorScreen';
 const Stack = createStackNavigator();
 
 const ItemListStack = () => {
@@ -30,7 +30,7 @@ const ItemListStack = () => {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Detail" component={ItemDetailScreen} />
             <Stack.Screen name = "checkout" component={CheckOutScreen} />
-            <Stack.Screen name='paypal' component={PaypalScreen}  />
+            <Stack.Screen name='error' component={ErrorScreen}  />
             <Stack.Screen name='success' component={SuccessScreen} />
             <Stack.Screen name='cancel' component={CancelScreen} /> 
 

@@ -29,6 +29,9 @@ const CheckOutScreen = ({navigation, route}) => {
         } else if (data.title === "cancel") {
             setModalVisible(false)
             navigation.navigate('cancel')
+        } else if (data.title.indexOf('Error')) {
+            setModalVisible(false)
+            navigation.navigate('error')
         } else {
             return;
         }
@@ -45,7 +48,6 @@ const CheckOutScreen = ({navigation, route}) => {
         description: "Utest Paypal-SDK Checkout"
     }
 
-    console.log(checkout)
   
 
     const INJECTEDJAVASCRIPT = `const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta)`;
