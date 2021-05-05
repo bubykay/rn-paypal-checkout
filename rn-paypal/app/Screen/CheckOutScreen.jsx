@@ -63,7 +63,7 @@ const CheckOutScreen = ({navigation, route}) => {
                 </View>
                 }
             
-            <Modal visible={modalVisible} transparent statusBarTranslucent='true'>
+            <Modal visible={modalVisible}  transparent>
                 
                 <WebView source={{
                     uri: 'https://utest-backend.herokuapp.com/paypal', 
