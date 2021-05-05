@@ -25,9 +25,10 @@ const ItemList = ({navigation}) => {
     const getProduct = async() => {
         setLoading(true)
         const result = await axios.get(`https://fakestoreapi.com/products?limit=30`)
-        setProducts(result.data)
+        setProducts(()=>result.data)
         setLoading(false)
     }
+
 
     const RenderItem = ({item}) => (
     <Product 

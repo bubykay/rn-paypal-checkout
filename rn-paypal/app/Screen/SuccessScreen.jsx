@@ -1,15 +1,16 @@
 import React from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
 
+import {success} from './styles'
 const SuccessScreen = ({navigation}) => {
     return (
-        <View style={styles.container}>
+        <View style={success.container}>
                 <View>
-                    <Text style={styles.text}>
+                    <Text style={success.text}>
                        Transaction successful. Thank you.
                     </Text>
                </View>
-               <View style={styles.goHome}>
+               <View style={success.goHome}>
                     <Button 
                         title={`Go Home`}
                         color={'white'} 
@@ -23,30 +24,3 @@ const SuccessScreen = ({navigation}) => {
 
 export default SuccessScreen;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-       
-    },
-    goHome:{
-        backgroundColor: '#450075', 
-        borderRadius: 5,
-        width: '70%',
-        paddingVertical: 5
-   
-    },
-    tryAgain:{
-        backgroundColor: '#FA1088', 
-        borderRadius: 5,
-        color: 'white',
-        width: '70%',
-        marginVertical: 10,
-        paddingVertical: 5
-    },
-    text: {
-        fontSize: 18,
-        paddingBottom: 20
-    }
-})

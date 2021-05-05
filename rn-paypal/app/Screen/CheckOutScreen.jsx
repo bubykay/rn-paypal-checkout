@@ -14,13 +14,12 @@ import Constants from 'expo-constants'
 
 import CheckOutList from '../component/CheckOutList';
 import CartContext from '../component/CartContext'
+import {checkout} from './styles'
 
 const CheckOutScreen = ({navigation, route}) => {
     const {cart, setCart} = useContext(CartContext)
     const [modalVisible, setModalVisible] = useState(false)
 
-    let ScreenHeight = Dimensions.get("window").height;
-    let ScreenWidth = Dimensions.get("window").width;
 
     const handleResponse = data => {
         if (data.title === "success") {
@@ -45,6 +44,8 @@ const CheckOutScreen = ({navigation, route}) => {
         amount: {currency: 'USD', total: cart.total},
         description: "Utest Paypal-SDK Checkout"
     }
+
+    console.log(checkout)
   
 
     const INJECTEDJAVASCRIPT = `const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta)`;
@@ -84,18 +85,24 @@ const CheckOutScreen = ({navigation, route}) => {
 
             <CheckOutList route={route} cart={cart} navigation={navigation}/>
 
-            <View style={styles.container}>
-                <View style={styles.cell}>
-                        <Text style={{alignSelf: "center", color:"white", fontWeight:'bold', fontSize:20}}>
-                            US ${cart.total}
+            <View style={checkout.container}>
+                <View style={checkout.cell}>
+                        <Text style={{
+                            alignSelf: "center", 
+                            color:"white", 
+                            fontWeight:'bold', 
+                            fontSize:20, 
+                            alignItems:'center'}}>
+
+                            US ${cart.total?Number(cart.total).toFixed(2):0.00}
                         </Text>
                 </View>
                 <TouchableHighlight 
-                    style={styles.button} 
+                    style={[checkout.cell], checkout.button} 
                     disabled= {cart.items.length?false:true}
                     onPress={()=>setModalVisible(true)}>
 
-                    <Text style={styles.paypalText}>
+                    <Text style={checkout.paypalText}>
                         Paypal Pay
                     </Text>
                 </TouchableHighlight>
@@ -106,33 +113,3 @@ const CheckOutScreen = ({navigation, route}) => {
 
 
 export default CheckOutScreen;
-
-const styles = StyleSheet.create({
-    cell: {
-        flex:1
-    },
-    button : {
-        flex: 1,
-        backgroundColor: '#3b7bbf',
-        borderRadius: 2,
-        height: '100%',
-        alignSelf: 'center',
-    },
-    container: {
-        position: "absolute",
-        flex:1, 
-        flexDirection:"row",
-        backgroundColor: '#FA1088',
-        bottom: 0,
-        width: "100%",
-        alignContent: "center",
-        alignItems: "center",
-        height: 50,
-    },
-    paypalText : {
-        color: 'white',
-        alignSelf: 'center',
-        fontSize: 20,
-    }
-
-})

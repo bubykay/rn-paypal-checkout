@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import {View ,Text, Image, StyleSheet, Button, SafeAreaView, FlatList} from 'react-native';
 
 import CartContext from '../component/CartContext';
+import {itemDetails} from './styles'
 
 const ItemDetailScreen = ({route, navigation}) => {
 const {category, description, image, price, title, id} = route.params
@@ -35,14 +36,14 @@ const RenderItem = ({item}) => (
     <Image source={{uri:item.image}} style={{height:350}} />
     </View>
         
-        <View style={styles.infoContainer}>
+        <View style={itemDetails.infoContainer}>
          <View>
-            <Text style={styles.price}>
+            <Text style={itemDetails.price}>
                 {`US $${item.price}`}
             </Text>
          </View>
-         <View style={styles.info}>
-            <Text style={styles.title}>{title}</Text>
+         <View style={itemDetails.info}>
+            <Text style={itemDetails.title}>{title}</Text>
         </View>
         <View>
             <View style={{marginVertical:10}}>
@@ -53,8 +54,8 @@ const RenderItem = ({item}) => (
                     Description
                 </Text>
             </View>
-            <View style={styles.info}>
-            <Text style={styles.description}>
+            <View style={itemDetails.info}>
+            <Text style={itemDetails.description}>
                 {item.description}
             </Text>
             </View>
@@ -74,8 +75,8 @@ const Footer = () => (<View style={{padding:100}}></View>)
             ListFooterComponent = {<Footer />}
             />
 
-            <View style={styles.submitButton}>
-                <View style={styles.button}>
+            <View style={itemDetails.submitButton}>
+                <View style={itemDetails.button}>
                     <Button 
                         title="Add to Cart" 
                         color={'white'} 
@@ -84,7 +85,7 @@ const Footer = () => (<View style={{padding:100}}></View>)
                 </View>
 
                 {cart.items.length ? (
-                    <View style={styles.checkout}>
+                    <View style={itemDetails.checkout}>
                     <Button 
                         disabled = {cart.total?false:true}
                         title={`Checkout US $${parseFloat(cart.total).toFixed(2)}`}
@@ -103,52 +104,3 @@ const Footer = () => (<View style={{padding:100}}></View>)
 
 export default ItemDetailScreen;
 
-const styles = StyleSheet.create({
-    title :{
-       
-        fontSize: 18,
-    },
-    button:{
-        padding: 10,
-        marginTop: 10,
-        backgroundColor: '#FA1088', 
-        borderRadius: 10,
-        color: 'white',
-        flex: 1
-    },
-    checkout:{
-        padding: 10,
-        marginTop: 10,
-        backgroundColor: '#450075', 
-        borderRadius: 10,
-        color: 'white'
-    },
-    infoContainer: {
-        flex: 1,
-        padding:10
-    
-    },
-    price: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        paddingVertical: 10,
-        color: '#FA1088'
-    },
-    submitButton: {
-        position: 'absolute',
-        bottom:10,
-        flex: 1,
-        width: '100%',
-        padding: 10,
-       
-    },
-    description : {
-        lineHeight:20
-    },
-    info: {
-        backgroundColor:'white', 
-        paddingVertical:10, 
-        borderRadius:10, 
-        paddingHorizontal:10
-    }
-})
