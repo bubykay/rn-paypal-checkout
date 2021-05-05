@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-paypal",
-    "slug": "rn-paypal",
+    "name": "Paypal SDK",
+    "slug": "paypal-sdk",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

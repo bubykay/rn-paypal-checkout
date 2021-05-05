@@ -29,7 +29,7 @@ const CheckOutScreen = ({navigation, route}) => {
         } else if (data.title === "cancel") {
             setModalVisible(false)
             navigation.navigate('cancel')
-        } else if (data.title.indexOf('Error')) {
+        } else if (data.title === "Application Error") {
             setModalVisible(false)
             navigation.navigate('error')
         } else {
